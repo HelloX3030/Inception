@@ -15,5 +15,3 @@ services:
       - wordpress-db:/var/lib/mysql
     ports:
       - "3306:3306"
-    networks:
-      - wordpress-net
