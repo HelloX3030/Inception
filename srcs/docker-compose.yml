@@ -13,5 +13,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - wordpress-db:/var/lib/mysql
+    ports:
+      - "3306:3306"
     networks:
       - wordpress-net
