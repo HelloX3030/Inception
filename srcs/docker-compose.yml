@@ -1,18 +1,12 @@
 version: "3.9"
 
 services:
-  web:
-    build:
-      context: ./web
-    container_name: web_server
-    ports:
-      - "8080:80"
-    restart: unless-stopped
+  service1:
+    image: alpine
+    container_name: service_one
+    command: ["sh", "-c", "while true; do echo Service 1 running; sleep 5; done"]
 
-  redis:
-    build:
-      context: ./redis
-    container_name: redis_db
-    ports:
-      - "6379:6379"
-    restart: unless-stopped
+  service2:
+    image: alpine
+    container_name: service_two
+    command: ["sh", "-c", "while true; do echo Service 2 running; sleep 5; done"]
