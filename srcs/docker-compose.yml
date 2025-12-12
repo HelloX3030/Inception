@@ -1,18 +1,7 @@
 services:
-  mariadb:
-    build:
-      context: ./requirements/mariadb
-    container_name: mariadb
+  nginx:
+    build: ./requirements/nginx
+    container_name: nginx
     restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    volumes:
-      - wordpress-db:/var/lib/mysql
     ports:
-      - "3306:3306"
-
-volumes:
-  wordpress-db:
+      - "80:80"
