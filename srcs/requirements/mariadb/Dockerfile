@@ -13,9 +13,9 @@ VOLUME ["/var/lib/mysql"]
 EXPOSE 3306
 
 # Change ownership of the data directory to mysql user
-RUN chown -R mysql:mysql /var/lib/mysql
+# RUN chown -R mysql:mysql /var/lib/mysql
 
 # Switch to mysql user
-USER mysql
+# USER mysql
 
 CMD ["mysqld"]
