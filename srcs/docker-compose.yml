@@ -5,3 +5,7 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: wordpress
+    restart: unless-stopped
