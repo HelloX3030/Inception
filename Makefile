@@ -1,6 +1,6 @@
 # Docker Compose wrapper Makefile
 
-COMPOSE := docker compose
+COMPOSE := docker compose -f ./srcs/docker-compose.yml
 PROJECT := app
 
 all: make
