@@ -1,11 +1,13 @@
 services:
   nginx:
     build: ./requirements/nginx
+    image: nginx
     container_name: nginx
     restart: unless-stopped
     ports:
       - "80:80"
   wordpress:
     build: ./requirements/wordpress
+    image: wordpress
     container_name: wp-php
     restart: unless-stopped
