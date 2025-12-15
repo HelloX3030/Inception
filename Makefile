@@ -6,7 +6,7 @@ PROJECT := app
 all: make
 
 make:
-	$(COMPOSE) up
+	$(COMPOSE) up -d
 
 clean:
 	$(COMPOSE) down
@@ -16,6 +16,7 @@ fclean:
 	docker system prune -f
 
 re:
-	$(COMPOSE) up --build
+	$(COMPOSE) up -d --build
 
 .PHONY: all make clean fclean re
+	
