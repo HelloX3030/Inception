@@ -1,6 +1,7 @@
 # Docker Compose wrapper Makefile
 
-COMPOSE := docker compose -f ./srcs/docker-compose.yml
+COMPOSE_PATH := ./srcs/docker-compose.yml
+COMPOSE := docker compose -f $(COMPOSE_PATH)
 PROJECT := app
 
 all: make
@@ -21,4 +22,10 @@ re:
 f:
 	$(COMPOSE) up
 
-.PHONY: all make clean fclean re f
+logs:
+	$(COMPOSE_PATH) logs
+
+ps:
+	docker ps
+
+.PHONY: all make clean fclean re f logs ps
