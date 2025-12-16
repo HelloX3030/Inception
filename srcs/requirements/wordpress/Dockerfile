@@ -21,6 +21,7 @@ RUN curl -fsSL https://packages.sury.org/php/README.txt | bash - && \
 COPY www.conf /etc/php/8.2/fpm/pool.d/www.conf
 COPY script.sh .
 RUN chmod +x ./script.sh
+RUN mkdir /run/php/
 
 # Start PHP-FPM 8.2 as the main container process
 ENTRYPOINT ["./script.sh"]
