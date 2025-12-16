@@ -9,9 +9,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 COPY www.conf /etc/php/8.2/fpm/pool.d/www.conf
+COPY script.sh . && chmod +x ./script.sh
 
 # Start PHP-FPM 8.2 as the main container process
-ENTRYPOINT ["/usr/sbin/php-fpm8.2"]
-
-# Run PHP-FPM in foreground (required for Docker)
-CMD ["-F"]
+ENTRYPOINT ["./script.sh"]
