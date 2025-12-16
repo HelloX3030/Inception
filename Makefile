@@ -18,4 +18,7 @@ fclean:
 re:
 	$(COMPOSE) up -d --build
 
-.PHONY: all make clean fclean re
+f:
+	$(COMPOSE) up
+
+.PHONY: all make clean fclean re f
