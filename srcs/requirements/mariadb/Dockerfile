@@ -9,6 +9,4 @@ COPY init.sql /etc/mysql/init.sql
 
 RUN mkdir /run/mysqld
 
-ENV MARIADB_ROOT_PASSWORD=my-secret-password
-
 ENTRYPOINT ["mysqld"]

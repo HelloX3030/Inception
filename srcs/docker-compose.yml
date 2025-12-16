@@ -8,6 +8,8 @@ services:
       - "80:80"
     volumes:
       - ./web:/var/www/html
+    depends_on:
+      - wordpress
   wordpress:
     build: ./requirements/wordpress
     image: wordpress
@@ -15,8 +17,17 @@ services:
     restart: unless-stopped
     volumes:
       - ./web:/var/www/html
-  maria-db:
+    depends_on:
+      - mariadb
+  mariadb:
     build: ./requirements/mariadb
     image: mariadb
     container_name: mariadb
     restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: my-secret-password
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
