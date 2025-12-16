@@ -22,6 +22,8 @@ RUN apt-get update && apt-get install -y \
 # Create runtime directory for PHP-FPM sockets and PID files
 RUN mkdir -p /run/php && chmod 777 /run/php
 
+COPY www.conf /etc/php/8.2/fpm/pool.d/www.conf
+
 # Start PHP-FPM 8.2 as the main container process
 ENTRYPOINT ["/usr/sbin/php-fpm8.2"]
 

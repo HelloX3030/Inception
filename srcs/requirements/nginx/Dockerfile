@@ -6,6 +6,8 @@ RUN apt update && apt upgrade -y && apt install -y \
     nginx \
     && rm -rf /var/lib/apt/lists/*
 
+COPY default /etc/nginx/sites-available/default
+
 # Nginx will always be the main process.
 ENTRYPOINT ["nginx"]
 
