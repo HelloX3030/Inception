@@ -23,7 +23,8 @@ f:
 	$(COMPOSE) up
 
 logs:
-	$(COMPOSE_PATH) logs
+	cd $(COMPOSE_PATH)
+	docker compose logs
 
 ps:
 	docker ps
