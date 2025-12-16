@@ -15,3 +15,8 @@ services:
     restart: unless-stopped
     volumes:
       - ./web:/var/www/html
+  maria-db:
+    build: ./requirements/mariadb
+    image: mariadb
+    container_name: mariadb
+    restart: unless-stopped
