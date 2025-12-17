@@ -22,6 +22,7 @@ clean:
 fclean:
 	$(COMPOSE) down --volumes --remove-orphans
 	docker system prune -f
+	rm -rf $(CERT_DIR)
 
 re:
 	$(COMPOSE) up -d --build
