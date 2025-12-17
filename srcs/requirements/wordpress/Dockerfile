@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     lsb-release \
     ca-certificates \
     gnupg \
+    netcat \
     && rm -rf /var/lib/apt/lists/*
 
 # Add the Sury PHP repository (for PHP 8.2)
