@@ -19,13 +19,36 @@
 # Default server configuration
 #
 server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
+	# listen 80 default_server;
+	# listen [::]:80 default_server;
 
 	# SSL configuration
 	#
-	# listen 443 ssl default_server;
-	# listen [::]:443 ssl default_server;
+	listen 443 ssl default_server;
+	listen [::]:443 ssl default_server;
+
+    # -------------------------------------------------------------
+    # TLS / SSL security settings
+    #
+    # ssl_protocols TLSv1.2 TLSv1.3;
+    #   - Only allow modern, secure TLS versions (v1.2 and v1.3)
+    #
+    # ssl_prefer_server_ciphers on;
+    #   - Force the server to choose the strongest cipher during TLS handshake
+    #     instead of letting the client pick a potentially weaker one
+    #
+    # ssl_ciphers 'HIGH:!aNULL:!MD5';
+    #   - Restrict ciphers to strong algorithms only
+    #   - Exclude unauthenticated ciphers (!aNULL) and weak hashes (!MD5)
+    #
+    # Together, these settings ensure HTTPS connections are secure and
+    # protected against known vulnerabilities in older TLS versions
+    # and weak ciphers.
+    # -------------------------------------------------------------
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers 'HIGH:!aNULL:!MD5';
+
 	#
 	# Note: You should disable gzip for SSL traffic.
 	# See: https://bugs.debian.org/773332
@@ -43,7 +66,7 @@ server {
 	# Add index.php to the list if you are using PHP
 	index index.php index.html index.htm index.nginx-debian.html;
 
-	server_name _;
+	server_name lseeger.42.fr;
 
 	location / {
 		# First attempt to serve request as file, then
