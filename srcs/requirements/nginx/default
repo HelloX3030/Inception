@@ -49,6 +49,9 @@ server {
     ssl_prefer_server_ciphers on;
     ssl_ciphers 'HIGH:!aNULL:!MD5';
 
+	ssl_certificate     /etc/nginx/certs/lseeger.42.fr.crt;
+	ssl_certificate_key /etc/nginx/certs/lseeger.42.fr.key;
+
 	#
 	# Note: You should disable gzip for SSL traffic.
 	# See: https://bugs.debian.org/773332
