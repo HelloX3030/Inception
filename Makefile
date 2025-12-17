@@ -7,7 +7,7 @@ DOMAIN := $(LOGIN).42.fr
 HOSTS_LINE := 127.0.0.1 $(DOMAIN)
 
 # Certificates configuration
-CERT_DIR := ./srcs/nginx/certs
+CERT_DIR := ./srcs/requirements/nginx/certs
 CERT_KEY := $(CERT_DIR)/$(DOMAIN).key
 CERT_CRT := $(CERT_DIR)/$(DOMAIN).crt
 
