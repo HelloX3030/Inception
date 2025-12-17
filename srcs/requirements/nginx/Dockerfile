@@ -8,6 +8,9 @@ RUN apt update && apt upgrade -y && apt install -y \
 
 COPY default /etc/nginx/sites-available/default
 
+# Document Expose HTTPS Port
+EXPOSE 443
+
 # Nginx will always be the main process.
 ENTRYPOINT ["nginx"]
 
