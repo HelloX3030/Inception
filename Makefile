@@ -24,7 +24,7 @@ fclean:
 	docker system prune -f
 	rm -rf $(CERT_DIR)
 
-re:
+re: fclean certs hosts
 	$(COMPOSE) up -d --build
 
 # Creation Rules
