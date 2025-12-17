@@ -1,5 +1,4 @@
 en.subject.pdf
 .env
-srcs/requirements/nginx/certs/*.crt
-srcs/requirements/nginx/certs/*.key
 .vscode/
+*certs/
