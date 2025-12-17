@@ -1,7 +1,7 @@
 COMPOSE_FOLDER := ./srcs/
 COMPOSE := docker compose -f $(COMPOSE_FOLDER)docker-compose.yml
 
-LOGIN := yourlogin
+LOGIN := lseeger
 DOMAIN := $(LOGIN).42.fr
 HOSTS_LINE := 127.0.0.1 $(DOMAIN)
 
