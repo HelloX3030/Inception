@@ -3,6 +3,7 @@ services:
     build: ./requirements/nginx
     image: inception-nginx
     container_name: nginx
+    pull_policy: never
     restart: unless-stopped
     ports:
       - "443:443"
@@ -15,6 +16,7 @@ services:
     build: ./requirements/wordpress
     image: inception-wordpress
     container_name: wp-php
+    pull_policy: never
     restart: unless-stopped
     volumes:
       - ./web:/var/www/html
@@ -24,6 +26,7 @@ services:
     build: ./requirements/mariadb
     image: inception-mariadb
     container_name: mariadb
+    pull_policy: never
     restart: unless-stopped
     environment:
       MARIADB_ROOT_PASSWORD: my-secret-password
