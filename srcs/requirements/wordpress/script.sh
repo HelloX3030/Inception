@@ -8,6 +8,7 @@ DB_NAME="wordpress"
 DB_USER="wpuser"
 DB_PASS="password"
 
+echo "tttttttttttttttttttttteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeesssssssssssssssssssssssssssssssssssssst"
 echo "Ensuring WP-CLI is available..."
 if [ ! -f wp-cli.phar ]; then
     curl -fLO https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
