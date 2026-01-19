@@ -4,23 +4,29 @@ set -e
 cd /var/www/html
 
 DB_HOST="mariadb"
-DB_PORT=3306
+DB_NAME="wordpress"
+DB_USER="wpuser"
+DB_PASS="password"
 
-# Wait for MariaDB to be reachable
-echo "Waiting for WordPress database to be ready..."
+echo "Ensuring WP-CLI is available..."
+if [ ! -f wp-cli.phar ]; then
+    curl -fLO https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+    chmod +x wp-cli.phar
+fi
+
+echo "Waiting for MariaDB to be ready..."
 for i in {1..30}; do
-    if ./wp-cli.phar db check --allow-root >/dev/null 2>&1; then
-        echo "Database is ready for WordPress"
+    if mysqladmin ping -h"$DB_HOST" --silent; then
+        echo "MariaDB is ready"
         break
     fi
-    echo "Database not ready yet... ($i)"
+    echo "MariaDB not ready yet... ($i)"
     sleep 2
 done
 
-# Download wp-cli if missing
-if [ ! -f wp-cli.phar ]; then
-    curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-    chmod +x wp-cli.phar
+if ! mysqladmin ping -h"$DB_HOST" --silent; then
+    echo "ERROR: MariaDB not reachable after timeout"
+    exit 1
 fi
 
 # Download WordPress core if missing
@@ -31,23 +37,20 @@ fi
 # Create wp-config.php if missing
 if [ ! -f wp-config.php ]; then
     ./wp-cli.phar config create \
-        --dbname=wordpress \
-        --dbuser=wpuser \
-        --dbpass=password \
-        --dbhost=${DB_HOST} \
+        --dbname="$DB_NAME" \
+        --dbuser="$DB_USER" \
+        --dbpass="$DB_PASS" \
+        --dbhost="$DB_HOST" \
         --allow-root
-else
-	echo "wp-config.php already exists"
 fi
 
-# Install WordPress only if NOT installed
 if ! ./wp-cli.phar core is-installed --allow-root; then
     ./wp-cli.phar core install \
-        --url=localhost \
-        --title=inception \
-        --admin_user=admin \
-        --admin_password=admin \
-        --admin_email=admin@admin.com \
+        --url="http://localhost:8080" \
+        --title="inception" \
+        --admin_user="admin" \
+        --admin_password="admin" \
+        --admin_email="admin@admin.com" \
         --allow-root
 else
     echo "WordPress already installed"
