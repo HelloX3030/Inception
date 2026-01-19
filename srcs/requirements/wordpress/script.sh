@@ -7,14 +7,14 @@ DB_HOST="mariadb"
 DB_PORT=3306
 
 # Wait for MariaDB to be reachable
-echo "Waiting for database at ${DB_HOST}:${DB_PORT}..."
+echo "Waiting for WordPress database to be ready..."
 for i in {1..30}; do
-    if nc -z ${DB_HOST} ${DB_PORT}; then
-        echo "Database is up"
+    if ./wp-cli.phar db check --allow-root >/dev/null 2>&1; then
+        echo "Database is ready for WordPress"
         break
     fi
-    echo "Still waiting... ($i)"
-    sleep 1
+    echo "Database not ready yet... ($i)"
+    sleep 2
 done
 
 # Download wp-cli if missing
