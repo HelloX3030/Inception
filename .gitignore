@@ -1,4 +1,4 @@
 en.subject.pdf
-.env
 .vscode/
 *certs/
+secrets/
