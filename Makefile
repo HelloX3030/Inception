@@ -61,5 +61,3 @@ ps:
 	docker ps
 
 .PHONY: all make clean fclean re hosts certs f logs ps
-
-test
