@@ -36,6 +36,8 @@ if [ ! -f wp-config.php ]; then
         --dbpass=password \
         --dbhost=${DB_HOST} \
         --allow-root
+else
+	echo "wp-config.php already exists"
 fi
 
 # Install WordPress only if NOT installed
