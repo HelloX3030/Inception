@@ -1,7 +1,7 @@
 services:
   nginx:
     build: ./requirements/nginx
-    image: nginx
+    image: inception-nginx
     container_name: nginx
     restart: unless-stopped
     ports:
@@ -13,7 +13,7 @@ services:
       - wordpress
   wordpress:
     build: ./requirements/wordpress
-    image: wordpress
+    image: inception-wordpress
     container_name: wp-php
     restart: unless-stopped
     volumes:
@@ -22,7 +22,7 @@ services:
       - mariadb
   mariadb:
     build: ./requirements/mariadb
-    image: mariadb
+    image: inception-mariadb
     container_name: mariadb
     restart: unless-stopped
     environment:
