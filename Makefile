@@ -15,8 +15,10 @@ CERT_CRT := $(CERT_DIR)/$(DOMAIN).crt
 all: up
 
 ### Start containers (safe if images already exist)
-up: certs hosts
-	$(COMPOSE) up -d
+up:
+	$(MAKE) certs
+	$(MAKE) hosts
+	$(MAKE) $(COMPOSE) up -d
 
 ### Stop containers
 clean:
