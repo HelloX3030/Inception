@@ -20,8 +20,7 @@ clean:
 	$(COMPOSE) down
 
 fclean:
-	$(COMPOSE) down --volumes --remove-orphans
-	docker system prune -f
+	$(COMPOSE) down --volumes --remove-orphans --rmi all
 	rm -rf $(CERT_DIR)
 
 re: fclean certs hosts
