@@ -8,7 +8,7 @@ services:
     ports:
       - "443:443"
     volumes:
-      - ./web:/var/www/html
+      - wp_data:/var/www/html
       - ./requirements/nginx/certs:/etc/nginx/certs:ro
     depends_on:
       - wordpress
@@ -19,7 +19,7 @@ services:
     pull_policy: never
     restart: unless-stopped
     volumes:
-      - ./web:/var/www/html
+      - wp_data:/var/www/html
     secrets:
       - db_name
       - db_user
@@ -44,6 +44,7 @@ services:
 
 volumes:
   db_data:
+  wp_data:
 
 secrets:
   db_name:
