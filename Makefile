@@ -18,7 +18,7 @@ all: up
 up:
 	$(MAKE) certs
 	$(MAKE) hosts
-	$(MAKE) $(COMPOSE) up -d
+	$(COMPOSE) up -d
 
 ### Stop containers
 clean:
