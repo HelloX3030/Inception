@@ -4,9 +4,15 @@ set -e
 cd /var/www/html
 
 DB_HOST="mariadb"
-DB_NAME="wordpress"
-DB_USER="wpuser"
-DB_PASS="password"
+
+# Docker Secrets
+DB_NAME="$(cat /run/secrets/db_name)"
+DB_USER="$(cat /run/secrets/db_user)"
+DB_PASS="$(cat /run/secrets/db_password)"
+
+WP_ADMIN_USER="$(cat /run/secrets/wp_admin_user)"
+WP_ADMIN_PASS="$(cat /run/secrets/wp_admin_password)"
+WP_ADMIN_EMAIL="$(cat /run/secrets/wp_admin_email)"
 
 echo "Ensuring WP-CLI is available..."
 if [ ! -f wp-cli.phar ]; then
@@ -48,9 +54,9 @@ if ! ./wp-cli.phar core is-installed --allow-root; then
     ./wp-cli.phar core install \
         --url="https://localhost" \
         --title="inception" \
-        --admin_user="admin" \
-        --admin_password="admin" \
-        --admin_email="admin@admin.com" \
+        --admin_user="$WP_ADMIN_USER" \
+        --admin_password="$WP_ADMIN_PASS" \
+        --admin_email="$WP_ADMIN_EMAIL" \
         --allow-root
 else
     echo "WordPress already installed"
