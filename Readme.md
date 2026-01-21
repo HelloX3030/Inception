@@ -12,9 +12,9 @@ echo "db-test-user" > secrets/db_user
 echo "change-me" > secrets/db_password
 
 # WordPress admin user (administrator role)
-echo "wp-admin" > secrets/wp_admin_user
+echo "wp" > secrets/wp_admin_user
 echo "change-me" > secrets/wp_admin_password
-echo "admin@admin.com" > secrets/wp_admin_email
+echo "wp@wp.com" > secrets/wp_admin_email
 
 # WordPress normal user (subscriber role)
 echo "wp-user" > secrets/wp_user_name
