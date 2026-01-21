@@ -14,6 +14,10 @@ WP_ADMIN_USER="$(cat /run/secrets/wp_admin_user)"
 WP_ADMIN_PASS="$(cat /run/secrets/wp_admin_password)"
 WP_ADMIN_EMAIL="$(cat /run/secrets/wp_admin_email)"
 
+WP_USER_NAME="$(cat /run/secrets/wp_user_name)"
+WP_USER_PASS="$(cat /run/secrets/wp_user_password)"
+WP_USER_EMAIL="$(cat /run/secrets/wp_user_email)"
+
 echo "Ensuring WP-CLI is available..."
 if [ ! -f wp-cli.phar ]; then
     curl -fLO https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
@@ -60,6 +64,17 @@ if ! ./wp-cli.phar core is-installed --allow-root; then
         --allow-root
 else
     echo "WordPress already installed"
+fi
+
+if ! ./wp-cli.phar user get "$WP_USER_NAME" --allow-root >/dev/null 2>&1; then
+    ./wp-cli.phar user create \
+        "$WP_USER_NAME" \
+        "$WP_USER_EMAIL" \
+        --user_pass="$WP_USER_PASS" \
+        --role=author \
+        --allow-root
+else
+    echo "WordPress user '$WP_USER_NAME' already exists"
 fi
 
 exec php-fpm8.2 -F

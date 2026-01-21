@@ -27,6 +27,9 @@ services:
       - wp_admin_user
       - wp_admin_password
       - wp_admin_email
+      - wp_user_name
+      - wp_user_password
+      - wp_user_email
     depends_on:
       - mariadb
   mariadb:
@@ -59,3 +62,9 @@ secrets:
     file: ../secrets/wp_admin_password
   wp_admin_email:
     file: ../secrets/wp_admin_email
+  wp_user_name:
+    file: ../secrets/wp_user_name
+  wp_user_password:
+    file: ../secrets/wp_user_password
+  wp_user_email:
+    file: ../secrets/wp_user_email
