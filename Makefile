@@ -14,7 +14,7 @@ CERT_CRT := $(CERT_DIR)/$(DOMAIN).crt
 ### Default target
 all: up
 
-### Start containers (safe if images already exist)
+### Start containers
 up:
 	$(MAKE) certs
 	$(MAKE) hosts

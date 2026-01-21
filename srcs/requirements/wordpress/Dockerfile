@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \
     gnupg \
     netcat \
+    mariadb-client \
     && rm -rf /var/lib/apt/lists/*
 
 # Add the Sury PHP repository (for PHP 8.2)
