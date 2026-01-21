@@ -9,4 +9,4 @@ COPY script.sh /usr/local/bin/script.sh
 
 RUN mkdir /run/mysqld
 
-ENTRYPOINT ["mysqld"]
+ENTRYPOINT ["/usr/local/bin/script.sh"]
