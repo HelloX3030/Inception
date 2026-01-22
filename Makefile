@@ -6,6 +6,11 @@ LOGIN := lseeger
 DOMAIN := $(LOGIN).42.fr
 HOSTS_LINE := 127.0.0.1 $(DOMAIN)
 
+# Data directories (subject requirement)
+DATA_DIR := /home/$(LOGIN)/data
+WP_DATA_DIR := $(DATA_DIR)/wordpress
+DB_DATA_DIR := $(DATA_DIR)/mariadb
+
 # Certificates configuration
 CERT_DIR := $(COMPOSE_FOLDER)/requirements/nginx/certs
 CERT_KEY := $(CERT_DIR)/$(DOMAIN).key
@@ -16,6 +21,7 @@ all: up
 
 ### Start containers
 up:
+	$(MAKE) data
 	$(MAKE) certs
 	$(MAKE) hosts
 	$(COMPOSE) up -d
@@ -28,14 +34,24 @@ clean:
 fclean:
 	$(COMPOSE) down --volumes --remove-orphans --rmi all
 	rm -rf $(CERT_DIR)
+	sudo rm -rf $(DATA_DIR)
 
 ### Full rebuild (order guaranteed)
 re:
 	$(MAKE) fclean
+	$(MAKE) data
 	$(MAKE) certs
 	$(MAKE) hosts
 	$(COMPOSE) build --no-cache
 	$(COMPOSE) up -d
+
+### Data directories (host)
+data:
+	@echo "Creating data directories in $(DATA_DIR)..."
+	sudo mkdir -p $(WP_DATA_DIR)
+	sudo mkdir -p $(DB_DATA_DIR)
+	sudo chmod 700 $(DATA_DIR)
+	sudo chown -R $(LOGIN):$(LOGIN) $(DATA_DIR)
 
 ### Hosts file
 hosts:
@@ -68,4 +84,4 @@ logs:
 ps:
 	docker ps
 
-.PHONY: all up clean fclean re hosts certs logs ps
+.PHONY: all up clean fclean re data hosts certs logs ps

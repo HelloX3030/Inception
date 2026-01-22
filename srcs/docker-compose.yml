@@ -46,8 +46,18 @@ services:
       - db_data:/var/lib/mysql
 
 volumes:
-  db_data:
   wp_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/lseeger/data/wordpress
+  db_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/lseeger/data/mariadb
 
 secrets:
   db_name:
