@@ -17,6 +17,7 @@ RUN curl -fsSL https://packages.sury.org/php/README.txt | bash - && \
     apt-get install -y \
     php8.2-fpm \
     php8.2-mysql \
+    php8.2-redis \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy configuration files
