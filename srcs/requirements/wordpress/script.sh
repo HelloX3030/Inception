@@ -1,6 +1,17 @@
 #!/bin/bash
 set -e
 
+ensure_define() {
+    local key="$1"
+    local value="$2"
+
+    if grep -q "^define('$key'" wp-config.php; then
+        sed -i "s|^define('$key'.*|define('$key', $value);|" wp-config.php
+    else
+        echo "define('$key', $value);" >> wp-config.php
+    fi
+}
+
 cd /var/www/html
 
 DB_HOST="mariadb"
@@ -54,21 +65,15 @@ if [ ! -f wp-config.php ]; then
         --allow-root
 fi
 
-# Configure Redis in wp-config.php (only once, early)
-if ! grep -q "WP_REDIS_HOST" wp-config.php; then
-    cat >> wp-config.php <<EOF
-
-/* Redis Object Cache */
-define('WP_REDIS_HOST', 'redis');
-define('WP_REDIS_PORT', 6379);
-define('WP_CACHE', true);
-EOF
-fi
+# Ensure Redis configuration
+ensure_define "WP_REDIS_HOST" "'redis'"
+ensure_define "WP_REDIS_PORT" "6379"
+ensure_define "WP_CACHE" "true"
 
 # Install WordPress if not installed
 if ! ./wp-cli.phar core is-installed --allow-root; then
     ./wp-cli.phar core install \
-        --url="https://localhost" \
+        --url="https://lseeger.42.fr" \
         --title="inception" \
         --admin_user="$WP_ADMIN_USER" \
         --admin_password="$WP_ADMIN_PASS" \
