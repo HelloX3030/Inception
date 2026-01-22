@@ -32,6 +32,7 @@ services:
       - wp_user_email
     depends_on:
       - mariadb
+      - redis
   mariadb:
     build: ./requirements/mariadb
     image: mariadb
