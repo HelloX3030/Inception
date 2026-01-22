@@ -71,7 +71,7 @@ server {
 
 	server_name lseeger.42.fr;
 
-	# Chat-Gpt Fix idk what its doing
+	# custom handling via wordpress
 	location / {
 		try_files $uri $uri/ /index.php?$args;
 	}
@@ -85,7 +85,7 @@ server {
 		# fastcgi_pass unix:/run/php/php7.4-fpm.sock;
 		# With php-cgi (or other tcp sockets):
 		# Forward PHP requests to the wordpress php-fpm service
-		fastcgi_pass wordpress:9000;
+		fastcgi_pass wp-php:9000;
 	}
 
 	# deny access to .htaccess files, if Apache's document root
