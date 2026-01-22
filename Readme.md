@@ -22,3 +22,11 @@ echo "change-me" > secrets/wp_user_password
 echo "user@user.com" > secrets/wp_user_email
 
 ```
+
+# Wordpress Page
+lseeger.42.fr
+localhost
+
+# Wordpress Management Page
+lseeger.42.fr/wp-admin
+lseeger.42.fr/wp-login

@@ -54,6 +54,18 @@ if [ ! -f wp-config.php ]; then
         --allow-root
 fi
 
+# Configure Redis in wp-config.php (only once, early)
+if ! grep -q "WP_REDIS_HOST" wp-config.php; then
+    cat >> wp-config.php <<EOF
+
+/* Redis Object Cache */
+define('WP_REDIS_HOST', 'redis');
+define('WP_REDIS_PORT', 6379);
+define('WP_CACHE', true);
+EOF
+fi
+
+# Install WordPress if not installed
 if ! ./wp-cli.phar core is-installed --allow-root; then
     ./wp-cli.phar core install \
         --url="https://localhost" \
@@ -66,6 +78,7 @@ else
     echo "WordPress already installed"
 fi
 
+# Create normal user
 if ! ./wp-cli.phar user get "$WP_USER_NAME" --allow-root >/dev/null 2>&1; then
     ./wp-cli.phar user create \
         "$WP_USER_NAME" \
@@ -76,5 +89,13 @@ if ! ./wp-cli.phar user get "$WP_USER_NAME" --allow-root >/dev/null 2>&1; then
 else
     echo "WordPress user '$WP_USER_NAME' already exists"
 fi
+
+# Install and enable Redis Object Cache plugin
+if ! ./wp-cli.phar plugin is-installed redis-cache --allow-root; then
+    ./wp-cli.phar plugin install redis-cache --activate --allow-root
+fi
+
+# Enable Redis object cache (safe on restarts)
+./wp-cli.phar redis enable --allow-root || true
 
 exec php-fpm8.2 -F
