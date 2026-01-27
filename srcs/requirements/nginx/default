@@ -80,6 +80,7 @@ server {
 	#
 	location ~ \.php$ {
 		include snippets/fastcgi-php.conf;
+		fastcgi_param HTTP_HOST $host;
 	
 		# With php-fpm (or other unix sockets):
 		# fastcgi_pass unix:/run/php/php7.4-fpm.sock;
