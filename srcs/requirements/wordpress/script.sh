@@ -8,7 +8,7 @@ ensure_define() {
     if grep -q "^define('$key'" wp-config.php; then
         sed -i "s|^define('$key'.*|define('$key', $value);|" wp-config.php
     else
-        echo "define('$key', $value);" >> wp-config.php
+        sed -i "/require_once .*wp-settings.php/i define('$key', $value);" wp-config.php
     fi
 }
 
