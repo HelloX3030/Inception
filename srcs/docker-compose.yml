@@ -30,6 +30,7 @@ services:
       - wp_user_name
       - wp_user_password
       - wp_user_email
+      - redis_password
     depends_on:
       - mariadb
       - redis
@@ -51,6 +52,8 @@ services:
     container_name: redis
     pull_policy: never
     restart: unless-stopped
+    secrets:
+      - redis_password
 
 volumes:
   wp_data:
@@ -85,3 +88,5 @@ secrets:
     file: ../secrets/wp_user_password
   wp_user_email:
     file: ../secrets/wp_user_email
+  redis_password:
+    file: ../secrets/redis_password

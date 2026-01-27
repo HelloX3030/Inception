@@ -29,6 +29,8 @@ WP_USER_NAME="$(cat /run/secrets/wp_user_name)"
 WP_USER_PASS="$(cat /run/secrets/wp_user_password)"
 WP_USER_EMAIL="$(cat /run/secrets/wp_user_email)"
 
+REDIS_PASS="$(cat /run/secrets/redis_password)"
+
 echo "Ensuring WP-CLI is available..."
 if [ ! -f wp-cli.phar ]; then
     curl -fLO https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
@@ -69,6 +71,7 @@ fi
 ensure_define "WP_REDIS_HOST" "'redis'"
 ensure_define "WP_REDIS_PORT" "6379"
 ensure_define "WP_CACHE" "true"
+ensure_define "WP_REDIS_PASSWORD" "'$REDIS_PASS'"
 
 # Install WordPress if not installed
 if ! ./wp-cli.phar core is-installed --allow-root; then

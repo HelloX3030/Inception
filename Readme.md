@@ -21,6 +21,8 @@ echo "wp-user" > secrets/wp_user_name
 echo "change-me" > secrets/wp_user_password
 echo "user@user.com" > secrets/wp_user_email
 
+# Redis Password
+echo "super_long_random_password" > secrets/redis_password
 ```
 
 # Wordpress Page
