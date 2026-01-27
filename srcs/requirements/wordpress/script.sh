@@ -103,16 +103,16 @@ if ! ./wp-cli.phar plugin is-installed redis-cache --allow-root; then
     ./wp-cli.phar plugin install redis-cache --activate --allow-root
 fi
 
-# Enable Redis object cache only once, and only when Redis is ready
+# Enable Redis object cache with retries
 if [ ! -f wp-content/object-cache.php ]; then
-    echo "Waiting for Redis..."
-    for i in {1..30}; do
-        if redis-cli -h redis ping >/dev/null 2>&1; then
-            echo "Redis is ready, enabling object cache"
-            ./wp-cli.phar redis enable --allow-root
+    echo "Enabling Redis object cache..."
+    for i in {1..10}; do
+        if ./wp-cli.phar redis enable --allow-root; then
+            echo "Redis object cache enabled"
             break
         fi
-        sleep 1
+        echo "Redis not ready yet, retrying ($i/10)..."
+        sleep 2
     done
 else
     echo "Redis already enabled, skipping"
