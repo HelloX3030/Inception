@@ -1,38 +1,69 @@
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
 }
 
 body {
-    height: 100vh;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #1e1e2f, #3a3a5f);
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #2c2c54, #1b1b2f);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: #fff;
 }
 
-.container {
+.game {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 30px;
+    border-radius: 16px;
+    width: 320px;
     text-align: center;
-    padding: 40px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    box-shadow: 0 0 30px rgba(0,0,0,0.4);
 }
 
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
+h1 {
+    margin-bottom: 10px;
+}
+
+.stats p {
+    margin: 5px 0;
+    font-size: 1.1rem;
+}
+
+#cookie {
+    font-size: 4rem;
+    padding: 20px;
+    margin: 20px 0;
     border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    background: #ffcc70;
+    box-shadow: 0 6px #caa24d;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+#cookie:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px #caa24d;
+}
+
+.upgrades {
+    margin-top: 20px;
+}
+
+.upgrades button {
+    width: 100%;
+    margin: 8px 0;
+    padding: 10px;
     background: #ff7a18;
-    color: white;
-    font-size: 1rem;
-    border-radius: 6px;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 0.95rem;
     cursor: pointer;
 }
 
-button:hover {
+.upgrades button:hover {
     background: #ff9f43;
 }

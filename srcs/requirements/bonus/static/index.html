@@ -2,15 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>lseeger | Static Site</title>
+    <title>Cookie Clicker | lseeger</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main class="container">
-        <h1>Hello 👋</h1>
-        <p>This is a simple static website served by Nginx.</p>
-        <button id="btn">Click me</button>
-    </main>
+    <div class="game">
+        <h1>🍪 Cookie Clicker</h1>
+
+        <div class="stats">
+            <p>Cookies: <span id="cookies">0</span></p>
+            <p>Cookies / click: <span id="cpc">1</span></p>
+            <p>Level: <span id="level">1</span></p>
+        </div>
+
+        <button id="cookie">🍪</button>
+
+        <div class="upgrades">
+            <h2>Upgrades</h2>
+            <button id="upgrade-click">
+                +1 Cookie / Click<br>
+                Cost: <span id="click-cost">10</span>
+            </button>
+
+            <button id="upgrade-auto">
+                Auto Clicker (+1 / sec)<br>
+                Cost: <span id="auto-cost">50</span>
+            </button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
