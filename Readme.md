@@ -1,4 +1,13 @@
 # Setup
+
+## Packages
+You need to install this packages, to properly use the setup
+
+```bash
+apt install docker.io docker-compose make apache2-utils
+```
+
+## Passwords
 You need to create this files, with the passwords. Here just an example, what needs to be created. **Don't use this passwords, they are not save!**
 
 ```bash
@@ -30,6 +39,14 @@ echo "change-me" > secrets/ftp_password
 
 ```
 
+## Monitor Setup
+```bash
+mkdir -p secrets/auth
+htpasswd -c secrets/auth/monitor.htpasswd monitor
+```
+
+---
+
 # Wordpress Page
 lseeger.42.fr
 localhost
@@ -56,3 +73,4 @@ static.lseeger.42.fr
 
 # Verify Adminer
 adminer.lseeger.42.fr
+=> Use Maria db-Credentials

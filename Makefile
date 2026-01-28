@@ -6,10 +6,12 @@ LOGIN := lseeger
 DOMAIN := $(LOGIN).42.fr
 STATIC_DOMAIN := static.$(DOMAIN)
 ADMINER_DOMAIN := adminer.$(DOMAIN)
+MONITOR_DOMAIN := monitor.$(DOMAIN)
 
 HOSTS_LINE_MAIN := 127.0.0.1 $(DOMAIN)
 HOSTS_LINE_STATIC := 127.0.0.1 $(STATIC_DOMAIN)
 HOSTS_LINE_ADMINER := 127.0.0.1 $(ADMINER_DOMAIN)
+HOSTS_LINE_MONITOR := 127.0.0.1 $(MONITOR_DOMAIN)
 
 # Data directories (subject requirement)
 DATA_DIR := /home/$(LOGIN)/data
@@ -89,6 +91,12 @@ hosts:
 		echo "$(HOSTS_LINE_ADMINER)" | sudo tee -a /etc/hosts > /dev/null; \
 	else \
 		echo "$(ADMINER_DOMAIN) already exists in /etc/hosts"; \
+	fi
+	@if ! grep -q "$(MONITOR_DOMAIN)" /etc/hosts; then \
+		echo "Adding $(MONITOR_DOMAIN) to /etc/hosts"; \
+		echo "$(HOSTS_LINE_MONITOR)" | sudo tee -a /etc/hosts > /dev/null; \
+	else \
+		echo "$(MONITOR_DOMAIN) already exists in /etc/hosts"; \
 	fi
 
 # ============================
