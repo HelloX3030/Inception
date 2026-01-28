@@ -79,8 +79,10 @@ services:
       - wordpress
 
   adminer:
-    image: adminer:latest
+    build: ./requirements/bonus/adminer
+    image: inception-adminer
     container_name: adminer
+    pull_policy: never
     restart: unless-stopped
     depends_on:
       - mariadb
