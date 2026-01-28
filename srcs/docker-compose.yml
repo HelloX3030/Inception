@@ -78,6 +78,13 @@ services:
     depends_on:
       - wordpress
 
+  adminer:
+    image: adminer:latest
+    container_name: adminer
+    restart: unless-stopped
+    depends_on:
+      - mariadb
+
 volumes:
   wp_data:
     driver: local
