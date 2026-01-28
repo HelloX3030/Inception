@@ -39,5 +39,20 @@ lseeger.42.fr/wp-admin
 lseeger.42.fr/wp-login
 
 # Verify Redis Works
+```bash
 docker exec -it -w /var/www/html wp-php ./wp-cli.phar redis status --allow-root
 docker exec -it redis sh -c 'redis-cli -a "$(cat /run/secrets/redis_password)" info keyspace'
+```
+
+# Verify ftp workes
+```bash
+apt install filezilla
+filezilla
+```
+=> than connect to localhost using user + password you specified (Port 21)
+
+# Verify Static Website
+static.lseeger.42.fr
+
+# Verify Adminer
+adminer.lseeger.42.fr
