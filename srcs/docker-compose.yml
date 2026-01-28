@@ -10,6 +10,7 @@ services:
     volumes:
       - wp_data:/var/www/html
       - ./requirements/nginx/certs:/etc/nginx/certs:ro
+      - ./requirements/bonus/static:/var/www/static:ro
     depends_on:
       - wordpress
 

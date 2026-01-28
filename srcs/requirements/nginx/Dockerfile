@@ -1,20 +1,15 @@
 FROM debian:latest
 
-# Update package index, upgrade installed packages,
-# install Nginx, then clean apt cache to keep the image small.
-RUN apt update && apt upgrade -y && apt install -y \
-    nginx \
+RUN apt update && apt install -y nginx \
     && rm -rf /var/lib/apt/lists/*
 
-COPY default /etc/nginx/sites-available/default
+# Remove default config
+RUN rm -f /etc/nginx/sites-enabled/default
 
-# Document Expose HTTPS Port
+# Copy our configs
+COPY conf.d/ /etc/nginx/conf.d/
+
 EXPOSE 443
 
-# Nginx will always be the main process.
 ENTRYPOINT ["nginx"]
-
-# -g allows passing global Nginx directives from the command line.
-# "daemon off;" disables background daemonization so Nginx
-# runs in the foreground as PID 1 (required for Docker).
 CMD ["-g", "daemon off;"]

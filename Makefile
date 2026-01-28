@@ -4,7 +4,10 @@ COMPOSE := docker compose -f $(COMPOSE_FOLDER)/docker-compose.yml
 # Domain and hosts configuration
 LOGIN := lseeger
 DOMAIN := $(LOGIN).42.fr
-HOSTS_LINE := 127.0.0.1 $(DOMAIN)
+STATIC_DOMAIN := static.$(DOMAIN)
+
+HOSTS_LINE_MAIN := 127.0.0.1 $(DOMAIN)
+HOSTS_LINE_STATIC := 127.0.0.1 $(STATIC_DOMAIN)
 
 # Data directories (subject requirement)
 DATA_DIR := /home/$(LOGIN)/data
@@ -64,13 +67,20 @@ data:
 	sudo chown -R $(LOGIN):$(LOGIN) $(DATA_DIR)
 
 ### Hosts file
+### Hosts file
 hosts:
-	@echo "Checking /etc/hosts for $(DOMAIN)..."
+	@echo "Checking /etc/hosts for domains..."
 	@if ! grep -q "$(DOMAIN)" /etc/hosts; then \
 		echo "Adding $(DOMAIN) to /etc/hosts"; \
-		echo "$(HOSTS_LINE)" | sudo tee -a /etc/hosts > /dev/null; \
+		echo "$(HOSTS_LINE_MAIN)" | sudo tee -a /etc/hosts > /dev/null; \
 	else \
 		echo "$(DOMAIN) already exists in /etc/hosts"; \
+	fi
+	@if ! grep -q "$(STATIC_DOMAIN)" /etc/hosts; then \
+		echo "Adding $(STATIC_DOMAIN) to /etc/hosts"; \
+		echo "$(HOSTS_LINE_STATIC)" | sudo tee -a /etc/hosts > /dev/null; \
+	else \
+		echo "$(STATIC_DOMAIN) already exists in /etc/hosts"; \
 	fi
 
 # ============================
