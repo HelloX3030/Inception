@@ -42,7 +42,7 @@ echo "change-me" > secrets/ftp_password
 ## Monitor Setup
 ```bash
 mkdir -p secrets/auth
-htpasswd -c secrets/auth/monitor.htpasswd monitor
+htpasswd -c secrets/auth/monitor.htpasswd your-monitor-user
 ```
 
 ---
