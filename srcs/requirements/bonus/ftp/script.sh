@@ -14,6 +14,7 @@ if ! id "$FTP_USER" >/dev/null 2>&1; then
 fi
 
 # Ensure correct ownership
-chown -R "$FTP_USER:$FTP_USER" /var/www/html
+chown -R www-data:www-data /var/www/html
+chown -R "$FTP_USER:$FTP_USER" /var/www/html/wp-content
 
 exec vsftpd /etc/vsftpd.conf
