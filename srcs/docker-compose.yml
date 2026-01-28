@@ -11,7 +11,7 @@ services:
       - wp_data:/var/www/html
       - ./requirements/nginx/certs:/etc/nginx/certs:ro
       - ./requirements/bonus/static:/var/www/static:ro
-      - ./secrets/auth:/etc/nginx/auth:ro
+      - ../secrets/auth:/etc/nginx/auth:ro
     depends_on:
       - wordpress
 
