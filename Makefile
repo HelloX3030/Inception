@@ -11,10 +11,19 @@ DATA_DIR := /home/$(LOGIN)/data
 WP_DATA_DIR := $(DATA_DIR)/wordpress
 DB_DATA_DIR := $(DATA_DIR)/mariadb
 
+# ============================
 # Certificates configuration
-CERT_DIR := $(COMPOSE_FOLDER)/requirements/nginx/certs
-CERT_KEY := $(CERT_DIR)/$(DOMAIN).key
-CERT_CRT := $(CERT_DIR)/$(DOMAIN).crt
+# ============================
+
+# Nginx TLS certs
+NGINX_CERT_DIR := $(COMPOSE_FOLDER)/requirements/nginx/certs
+NGINX_CERT_KEY := $(NGINX_CERT_DIR)/$(DOMAIN).key
+NGINX_CERT_CRT := $(NGINX_CERT_DIR)/$(DOMAIN).crt
+
+# FTP (FTPS) certs
+FTP_CERT_DIR := $(COMPOSE_FOLDER)/requirements/bonus/ftp/certs
+FTP_CERT_KEY := $(FTP_CERT_DIR)/ftp.key
+FTP_CERT_CRT := $(FTP_CERT_DIR)/ftp.crt
 
 ### Default target
 all: up
@@ -33,7 +42,8 @@ clean:
 ### Full cleanup (volumes + images + certs)
 fclean:
 	$(COMPOSE) down --volumes --remove-orphans --rmi all
-	rm -rf $(CERT_DIR)
+	rm -rf $(NGINX_CERT_DIR)
+	rm -rf $(FTP_CERT_DIR)
 	sudo rm -rf $(DATA_DIR)
 
 ### Full rebuild (order guaranteed)
@@ -63,18 +73,36 @@ hosts:
 		echo "$(DOMAIN) already exists in /etc/hosts"; \
 	fi
 
-### Certificates
-certs:
-	@mkdir -p $(CERT_DIR)
-	@if [ ! -f $(CERT_KEY) ] || [ ! -f $(CERT_CRT) ]; then \
+# ============================
+# Certificate targets
+# ============================
+
+certs: nginx-certs ftp-certs
+
+nginx-certs:
+	@mkdir -p $(NGINX_CERT_DIR)
+	@if [ ! -f $(NGINX_CERT_KEY) ] || [ ! -f $(NGINX_CERT_CRT) ]; then \
+		echo "Generating Nginx TLS certificate..."; \
 		openssl req -x509 -nodes -days 365 \
-		-newkey rsa:2048 \
-		-keyout $(CERT_KEY) \
-		-out $(CERT_CRT) \
-		-subj "/CN=$(DOMAIN)"; \
-		echo "Self-signed certs generated"; \
+			-newkey rsa:2048 \
+			-keyout $(NGINX_CERT_KEY) \
+			-out $(NGINX_CERT_CRT) \
+			-subj "/CN=$(DOMAIN)"; \
 	else \
-		echo "Certs already exist"; \
+		echo "Nginx TLS cert already exists"; \
+	fi
+
+ftp-certs:
+	@mkdir -p $(FTP_CERT_DIR)
+	@if [ ! -f $(FTP_CERT_KEY) ] || [ ! -f $(FTP_CERT_CRT) ]; then \
+		echo "Generating FTPS certificate..."; \
+		openssl req -x509 -nodes -days 365 \
+			-newkey rsa:2048 \
+			-keyout $(FTP_CERT_KEY) \
+			-out $(FTP_CERT_CRT) \
+			-subj "/CN=ftp.$(DOMAIN)"; \
+	else \
+		echo "FTPS cert already exists"; \
 	fi
 
 ### Utility targets
@@ -84,4 +112,4 @@ logs:
 ps:
 	docker ps
 
-.PHONY: all up clean fclean re data hosts certs logs ps
+.PHONY: all up clean fclean re data hosts certs nginx-certs ftp-certs logs ps
