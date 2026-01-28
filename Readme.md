@@ -25,8 +25,8 @@ echo "user@user.com" > secrets/wp_user_email
 echo "change-me" > secrets/redis_password
 
 # FTP 
-echo "ftpuser" > ../secrets/ftp_user
-echo "change-me" > ../secrets/ftp_password
+echo "ftpuser" > secrets/ftp_user
+echo "change-me" > secrets/ftp_password
 
 ```
 
