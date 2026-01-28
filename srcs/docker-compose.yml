@@ -62,6 +62,7 @@ services:
     build: ./requirements/bonus/ftp
     image: inception-ftp
     container_name: ftp
+    pull_policy: never
     restart: unless-stopped
     ports:
       - "21:21"
