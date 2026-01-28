@@ -23,6 +23,11 @@ echo "user@user.com" > secrets/wp_user_email
 
 # Redis Password
 echo "change-me" > secrets/redis_password
+
+# FTP 
+echo "ftpuser" > ../secrets/ftp_user
+echo "change-me" > ../secrets/ftp_password
+
 ```
 
 # Wordpress Page
@@ -32,3 +37,7 @@ localhost
 # Wordpress Management Page
 lseeger.42.fr/wp-admin
 lseeger.42.fr/wp-login
+
+# Verify Redis Works
+docker exec -it -w /var/www/html wp-php ./wp-cli.phar redis status --allow-root
+docker exec -it redis sh -c 'redis-cli -a "$(cat /run/secrets/redis_password)" info keyspace'
