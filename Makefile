@@ -1,8 +1,10 @@
+include .env
+export
+
 COMPOSE_FOLDER := ./srcs
 COMPOSE := docker compose -f $(COMPOSE_FOLDER)/docker-compose.yml
 
 # Domain and hosts configuration
-LOGIN := lseeger
 DOMAIN := $(LOGIN).42.fr
 STATIC_DOMAIN := static.$(DOMAIN)
 ADMINER_DOMAIN := adminer.$(DOMAIN)
@@ -24,8 +26,8 @@ DB_DATA_DIR := $(DATA_DIR)/mariadb
 
 # Nginx TLS certs
 NGINX_CERT_DIR := $(COMPOSE_FOLDER)/requirements/nginx/certs
-NGINX_CERT_KEY := $(NGINX_CERT_DIR)/$(DOMAIN).key
-NGINX_CERT_CRT := $(NGINX_CERT_DIR)/$(DOMAIN).crt
+NGINX_CERT_KEY := $(NGINX_CERT_DIR)/cert.key
+NGINX_CERT_CRT := $(NGINX_CERT_DIR)/cert.crt
 
 # FTP (FTPS) certs
 FTP_CERT_DIR := $(COMPOSE_FOLDER)/requirements/bonus/ftp/certs

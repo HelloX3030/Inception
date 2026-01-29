@@ -1,5 +1,12 @@
 # Setup
 
+## Envs
+Create a file with the nessecary envs
+
+```.env
+LOGIN=lseeger
+```
+
 ## Packages
 You need to install this packages, to properly use the setup
 
