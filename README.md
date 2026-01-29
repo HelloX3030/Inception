@@ -3,8 +3,8 @@
 ## Envs
 Create a file with the nessecary envs
 
-```.env
-LOGIN=lseeger
+```bash
+echo "LOGIN=LSEEGER" > .env
 ```
 
 ## Packages
