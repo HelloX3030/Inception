@@ -4,7 +4,7 @@
 Create a file with the nessecary envs
 
 ```bash
-echo "LOGIN=LSEEGER" > .env
+echo "LOGIN=lseeger" > .env
 ```
 
 ## Packages
