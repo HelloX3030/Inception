@@ -50,7 +50,7 @@ for i in {1..30}; do
     sleep 2
 done
 
-if mysqladmin ping -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" --silent; then
+if ! mysqladmin ping -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" --silent; then
     echo "ERROR: MariaDB not reachable after timeout"
     exit 1
 fi
