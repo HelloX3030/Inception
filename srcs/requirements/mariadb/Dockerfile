@@ -1,4 +1,4 @@
-FROM debian:11
+FROM debian:12
 
 RUN apt update && apt upgrade -y && apt install -y \
     mariadb-server mariadb-client \

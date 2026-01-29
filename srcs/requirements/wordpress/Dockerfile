@@ -1,5 +1,5 @@
 # Base image: Debian 11 (Bullseye)
-FROM debian:11
+FROM debian:12
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
