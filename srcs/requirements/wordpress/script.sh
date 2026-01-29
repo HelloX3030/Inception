@@ -5,8 +5,8 @@ ensure_define() {
     local key="$1"
     local value="$2"
 
-    if grep -q "^define('$key'" wp-config.php; then
-        sed -i "s|^define('$key'.*|define('$key', $value);|" wp-config.php
+    if grep -Eq "^[[:space:]]*define\([[:space:]]*'$key'" wp-config.php; then
+        sed -i "/^[[:space:]]*define[[:space:]]*('$key'/c\define('$key', $value);" wp-config.php
     else
         sed -i "/require_once .*wp-settings.php/i define('$key', $value);" wp-config.php
     fi
@@ -39,7 +39,7 @@ fi
 
 echo "Waiting for MariaDB to be ready..."
 for i in {1..30}; do
-    if mysqladmin ping -h"$DB_HOST" --silent; then
+    if mysqladmin ping -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" --silent; then
         echo "MariaDB is ready"
         break
     fi
@@ -47,7 +47,7 @@ for i in {1..30}; do
     sleep 2
 done
 
-if ! mysqladmin ping -h"$DB_HOST" --silent; then
+if mysqladmin ping -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" --silent; then
     echo "ERROR: MariaDB not reachable after timeout"
     exit 1
 fi
