@@ -32,8 +32,11 @@ WP_USER_EMAIL="$(cat /run/secrets/wp_user_email)"
 REDIS_PASS="$(cat /run/secrets/redis_password)"
 
 echo "Ensuring WP-CLI is available..."
+WP_CLI_VERSION=2.10.0
 if [ ! -f wp-cli.phar ]; then
-    curl -fLO https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+    curl -fsSL \
+      https://github.com/wp-cli/wp-cli/releases/download/v${WP_CLI_VERSION}/wp-cli-${WP_CLI_VERSION}.phar \
+      -o wp-cli.phar
     chmod +x wp-cli.phar
 fi
 
@@ -53,8 +56,11 @@ if mysqladmin ping -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" --silent; then
 fi
 
 # Download WordPress core if missing
+WP_VERSION=6.5.3
 if [ ! -f wp-load.php ]; then
-    ./wp-cli.phar core download --allow-root
+    ./wp-cli.phar core download \
+        --version="$WP_VERSION" \
+        --allow-root
 fi
 
 # Create wp-config.php if missing
@@ -99,9 +105,14 @@ else
 fi
 
 # Install and enable Redis Object Cache plugin
+REDIS_CACHE_VERSION=2.5.3
 if ! ./wp-cli.phar plugin is-installed redis-cache --allow-root; then
-    ./wp-cli.phar plugin install redis-cache --activate --allow-root
+    ./wp-cli.phar plugin install redis-cache \
+        --version="$REDIS_CACHE_VERSION" \
+        --activate \
+        --allow-root
 fi
+
 
 # Enable Redis object cache (only after WP is fully installed)
 if ./wp-cli.phar core is-installed --allow-root; then

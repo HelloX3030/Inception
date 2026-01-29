@@ -1,9 +1,9 @@
 FROM debian:12
 
 RUN apt-get update && apt-get install -y \
-    redis-server \
+    redis-server=7.0.* \
     ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
+ && rm -rf /var/lib/apt/lists/*
 
 COPY redis.conf /etc/redis/redis.conf
 
