@@ -1,20 +1,27 @@
 # Setup
 
+## Packages
+You need to install this packages, to properly use the setup
+
+```bash
+apt install docker.io docker-compose make apache2-utils
+```
+
+Keep in mind, that you need to give your user the needed permissions.
+```bash
+usermod -aG sudo lseeger
+usermod -aG docker lseeger
+```
+And after this, you need to logout, so that the permissions actualy apply.
+
 ## Envs
-Create a file with the nessecary envs
+Create a file with the nessecary envs, at the root of the project.
 
 ```bash
 echo "
 LOGIN=lseeger
 DOMAIN=lseeger.42.fr
 " > .env
-```
-
-## Packages
-You need to install this packages, to properly use the setup
-
-```bash
-apt install docker.io docker-compose make apache2-utils
 ```
 
 ## Passwords
