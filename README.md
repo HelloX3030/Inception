@@ -4,7 +4,10 @@
 Create a file with the nessecary envs
 
 ```bash
-echo "LOGIN=lseeger" > .env
+echo "
+LOGIN=lseeger
+DOMAIN=lseeger.42.fr
+" > .env
 ```
 
 ## Packages
