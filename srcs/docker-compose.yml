@@ -12,6 +12,8 @@ services:
       - ./requirements/nginx/certs:/etc/nginx/certs:ro
       - ./requirements/bonus/static:/var/www/static:ro
       - ../secrets/auth:/etc/nginx/auth:ro
+    env_file:
+      - ../.env
     depends_on:
       - wordpress
 
