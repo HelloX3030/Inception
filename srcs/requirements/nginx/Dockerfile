@@ -1,15 +1,23 @@
 FROM debian:12
 
-RUN apt update && apt install -y nginx \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+    nginx \
+    gettext-base \
+ && rm -rf /var/lib/apt/lists/*
 
-# Remove default config
 RUN rm -f /etc/nginx/sites-enabled/default
 
-# Copy our configs
-COPY conf.d/ /etc/nginx/conf.d/
+# Copy ALL templates
+COPY conf.d/adminer.conf.template /etc/nginx/templates/
+COPY conf.d/monitor.conf.template /etc/nginx/templates/
+COPY conf.d/static.conf.template /etc/nginx/templates/
+COPY conf.d/wordpress.conf.template /etc/nginx/templates/
+
+# Copy entrypoint
+COPY script.sh /script.sh
+RUN chmod +x /script.sh
 
 EXPOSE 443
 
-ENTRYPOINT ["nginx"]
-CMD ["-g", "daemon off;"]
+ENTRYPOINT ["/script.sh"]
+CMD ["nginx", "-g", "daemon off;"]

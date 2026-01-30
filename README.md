@@ -22,6 +22,10 @@ echo "
 # Domains
 LOGIN=lseeger
 DOMAIN=lseeger.42.fr
+ADMINER_DOMAIN=adminer.lseeger.42.fr
+MONITOR_DOMAIN=monitor.lseeger.42.fr
+STATIC_DOMAIN=static.lseeger.42.fr
+
 
 # Names
 DB_HOST=mariadb

@@ -5,10 +5,6 @@ COMPOSE_FOLDER := ./srcs
 COMPOSE := docker compose -f $(COMPOSE_FOLDER)/docker-compose.yml
 
 # Domain and hosts configuration
-STATIC_DOMAIN := static.$(DOMAIN)
-ADMINER_DOMAIN := adminer.$(DOMAIN)
-MONITOR_DOMAIN := monitor.$(DOMAIN)
-
 HOSTS_LINE_MAIN := 127.0.0.1 $(DOMAIN)
 HOSTS_LINE_STATIC := 127.0.0.1 $(STATIC_DOMAIN)
 HOSTS_LINE_ADMINER := 127.0.0.1 $(ADMINER_DOMAIN)
