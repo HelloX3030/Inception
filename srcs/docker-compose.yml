@@ -96,13 +96,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/lseeger/data/wordpress
+      device: ${WP_DATA_DIR}
   db_data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/lseeger/data/mariadb
+      device: ${DB_DATA_DIR}
 
 secrets:
   db_name:

@@ -19,12 +19,19 @@ Create a file with the nessecary envs, at the root of the project.
 
 ```bash
 echo "
+# Domains
 LOGIN=lseeger
 DOMAIN=lseeger.42.fr
 
+# Names
 DB_HOST=mariadb
 WP_TITLE=inception
 
+# Folders
+WP_DATA_DIR=/home/lseeger/data/wordpress
+DB_DATA_DIR=/home/lseeger/data/mariadb
+
+# Versions
 WP_CLI_VERSION=2.10.0
 WP_VERSION=6.5.3
 REDIS_CACHE_VERSION=2.5.3
