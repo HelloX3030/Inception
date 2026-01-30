@@ -21,6 +21,13 @@ Create a file with the nessecary envs, at the root of the project.
 echo "
 LOGIN=lseeger
 DOMAIN=lseeger.42.fr
+
+DB_HOST=mariadb
+WP_TITLE=inception
+
+WP_CLI_VERSION=2.10.0
+WP_VERSION=6.5.3
+REDIS_CACHE_VERSION=2.5.3
 " > .env
 ```
 
