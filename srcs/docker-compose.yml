@@ -1,7 +1,7 @@
 services:
   nginx:
     build: ./requirements/nginx
-    image: inception-nginx
+    image: nginx
     container_name: nginx
     pull_policy: never
     restart: unless-stopped
@@ -19,7 +19,7 @@ services:
 
   wordpress:
     build: ./requirements/wordpress
-    image: inception-wordpress
+    image: wordpress
     container_name: wp-php
     pull_policy: never
     restart: unless-stopped
@@ -66,7 +66,7 @@ services:
 
   ftp:
     build: ./requirements/bonus/ftp
-    image: inception-ftp
+    image: ftp
     container_name: ftp
     pull_policy: never
     restart: unless-stopped
@@ -85,7 +85,7 @@ services:
 
   adminer:
     build: ./requirements/bonus/adminer
-    image: inception-adminer
+    image: adminer
     container_name: adminer
     pull_policy: never
     restart: unless-stopped
