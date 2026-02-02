@@ -92,6 +92,9 @@ services:
     depends_on:
       - mariadb
 
+networks:
+  inception_net:
+
 volumes:
   wp_data:
     driver: local
