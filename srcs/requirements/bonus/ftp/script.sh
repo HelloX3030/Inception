@@ -12,9 +12,9 @@ done
 # Required vsftpd chroot dir
 mkdir -p /var/run/vsftpd/empty
 
-# Create FTP user (no shell)
+# Create FTP user (PAM-compatible shell required)
 if ! id "$FTP_USER" >/dev/null 2>&1; then
-    useradd -m -s /usr/sbin/nologin "$FTP_USER"
+    useradd -m -s /bin/bash "$FTP_USER"
     echo "$FTP_USER:$FTP_PASS" | chpasswd
 fi
 
