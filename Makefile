@@ -43,12 +43,33 @@ up:
 clean:
 	$(COMPOSE) down
 
-### Full cleanup (volumes + images + certs)
+### Full cleanup (containers, images, volumes, networks, data, certs)
 fclean:
-	$(COMPOSE) down --volumes --remove-orphans --rmi all
-	rm -rf $(NGINX_CERT_DIR)
-	rm -rf $(FTP_CERT_DIR)
-	sudo rm -rf $(DATA_DIR)
+	@echo "Stopping docker-compose stack..."
+	-$(COMPOSE) down --volumes --remove-orphans --rmi all
+
+	@echo "Stopping and removing ALL Docker containers..."
+	-@docker stop $$(docker ps -qa) 2>/dev/null || true
+	-@docker rm -f $$(docker ps -qa) 2>/dev/null || true
+
+	@echo "Removing ALL Docker images..."
+	-@docker rmi -f $$(docker images -qa) 2>/dev/null || true
+
+	@echo "Removing ALL Docker volumes..."
+	-@docker volume rm $$(docker volume ls -q) 2>/dev/null || true
+
+	@echo "Removing ALL Docker networks (except defaults)..."
+	-@docker network rm $$(docker network ls -q) 2>/dev/null || true
+
+	@echo "Removing certificates..."
+	-@rm -rf $(NGINX_CERT_DIR)
+	-@rm -rf $(FTP_CERT_DIR)
+
+	@echo "Removing data directory..."
+	-@sudo rm -rf $(DATA_DIR)
+
+	@echo "Full cleanup completed."
+
 
 ### Full rebuild (order guaranteed)
 re:
