@@ -12,6 +12,8 @@ services:
       - ./requirements/nginx/certs:/etc/nginx/certs:ro
       - ./requirements/bonus/static:/var/www/static:ro
       - ../secrets/auth:/etc/nginx/auth:ro
+    networks:
+      - inception_net
     env_file:
       - ../.env
     depends_on:
@@ -25,6 +27,8 @@ services:
     restart: unless-stopped
     volumes:
       - wp_data:/var/www/html
+    networks:
+      - inception_net
     env_file:
       - ../.env
     secrets:
@@ -48,12 +52,14 @@ services:
     container_name: mariadb
     pull_policy: never
     restart: unless-stopped
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - inception_net
     secrets:
       - db_name
       - db_user
       - db_password
-    volumes:
-      - db_data:/var/lib/mysql
 
   redis:
     build: ./requirements/redis
@@ -61,6 +67,8 @@ services:
     container_name: redis
     pull_policy: never
     restart: unless-stopped
+    networks:
+      - inception_net
     secrets:
       - redis_password
 
@@ -76,7 +84,8 @@ services:
     volumes:
       - wp_data:/var/www/html
       - ./requirements/bonus/ftp/certs:/etc/vsftpd/certs:ro
-
+    networks:
+      - inception_net
     secrets:
       - ftp_user
       - ftp_password
@@ -89,6 +98,8 @@ services:
     container_name: adminer
     pull_policy: never
     restart: unless-stopped
+    networks:
+      - inception_net
     depends_on:
       - mariadb
 
